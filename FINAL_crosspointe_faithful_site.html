@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Explorer's Field Guide · The Traitors: Crosspointe Edition</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --gold:#C9A227;--gold2:#E8C84A;--gold-dim:#7A6018;
+  --parch:#F5E6C8;--parch2:#d4b896;--smoke:#b0a090;--ash:#7a6f60;
+  --purple:#c084fc;--teal:#67e8f9;--green:#86efac;--orange:#fb923c;
+  --red-bright:#e74c3c;--surface:#1a1208;
+}
+body{margin:0;padding:0;background:#0a0705;}
+#aw{
+  background-color:#0a0705;
+  background-image:
+    radial-gradient(ellipse 80% 55% at 50% 0%,rgba(70,50,10,.5) 0%,transparent 65%),
+    radial-gradient(ellipse 50% 40% at 15% 90%,rgba(30,50,20,.3) 0%,transparent 55%),
+    radial-gradient(ellipse 50% 40% at 85% 90%,rgba(30,50,20,.3) 0%,transparent 55%);
+  color:var(--parch);font-family:'EB Garamond',Georgia,serif;min-height:100vh;overflow-x:hidden;
+}
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:4rem 2rem;z-index:1;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 65% 70% at 50% 50%,rgba(201,162,39,.1) 0%,transparent 70%);}
+.castle-sil{position:absolute;bottom:0;left:0;right:0;height:180px;background:#060504;clip-path:polygon(0% 100%,0% 62%,2% 62%,2% 42%,3% 42%,3% 32%,4% 32%,4% 42%,5% 42%,5% 62%,8% 62%,8% 42%,9% 42%,9% 32%,10% 32%,10% 42%,11% 42%,11% 62%,13% 62%,13% 22%,13.5% 22%,13.5% 12%,14% 12%,14% 5%,14.5% 5%,14.5% 12%,15% 12%,15% 22%,15.5% 22%,15.5% 62%,19% 62%,19% 42%,20% 42%,20% 32%,21% 32%,21% 42%,22% 42%,22% 62%,28% 62%,28% 72%,33% 72%,33% 62%,38% 62%,38% 42%,39% 42%,39% 32%,40% 32%,40% 42%,41% 42%,41% 62%,46% 62%,46% 15%,47% 15%,47% 5%,47.5% 5%,47.5% 0%,48% 0%,48.5% 0%,48.5% 5%,49% 5%,49% 15%,50% 15%,50% 62%,55% 62%,55% 72%,60% 72%,60% 62%,65% 62%,65% 42%,66% 42%,66% 32%,67% 32%,67% 42%,68% 42%,68% 62%,72% 62%,72% 22%,72.5% 22%,72.5% 12%,73% 12%,73% 5%,73.5% 5%,73.5% 12%,74% 12%,74% 22%,74.5% 22%,74.5% 62%,78% 62%,78% 42%,79% 42%,79% 32%,80% 32%,80% 42%,81% 42%,81% 62%,85% 62%,85% 42%,86% 42%,86% 32%,87% 32%,87% 42%,88% 42%,88% 62%,91% 62%,91% 42%,92% 42%,92% 32%,93% 32%,93% 42%,94% 42%,94% 62%,100% 62%,100% 100%);}
+.candles{position:absolute;bottom:135px;left:0;right:0;display:flex;justify-content:space-around;padding:0 6%;pointer-events:none;z-index:2;}
+.cv{display:flex;flex-direction:column;align-items:center;animation:sway 3.2s ease-in-out infinite;}
+.cv:nth-child(2){animation-delay:-1.2s;}.cv:nth-child(3){animation-delay:-2s;}.cv:nth-child(4){animation-delay:-.7s;}
+@keyframes sway{0%,100%{transform:rotate(-1deg);}50%{transform:rotate(1deg);}}
+.fl{width:8px;height:14px;background:radial-gradient(ellipse at 50% 80%,#fff7a0,#ffcc00 30%,#ff8800 70%,transparent);border-radius:50% 50% 20% 20%;animation:flick .15s ease-in-out infinite alternate;box-shadow:0 0 8px 3px rgba(255,120,0,.4);}
+.cv:nth-child(2) .fl{animation-duration:.12s;}.cv:nth-child(3) .fl{animation-duration:.18s;}.cv:nth-child(4) .fl{animation-duration:.13s;}
+@keyframes flick{from{transform:scaleX(1) rotate(-2deg);}to{transform:scaleX(.85) rotate(2deg);}}
+.cb{width:7px;height:32px;background:linear-gradient(to right,#c4a080,#f0d8b0 40%,#c9a227);border-radius:2px;}
+.eyebrow{font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.45em;color:rgba(201,162,39,.7);text-transform:uppercase;margin-bottom:1.2rem;opacity:0;animation:fd 1s ease forwards .3s;}
+.main-title{font-family:'Cinzel Decorative',serif;font-size:clamp(2.2rem,6vw,4.8rem);font-weight:900;line-height:1;background:linear-gradient(180deg,#fff7e0 0%,#e8c84a 25%,#c9a227 60%,#8b6914 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 22px rgba(201,162,39,.35));opacity:0;animation:fd 1s ease forwards .6s;}
+.sub-title{font-family:'Cinzel Decorative',serif;font-size:clamp(.8rem,2vw,1.35rem);color:rgba(201,162,39,.8);letter-spacing:.12em;margin:.5rem 0 .3rem;opacity:0;animation:fd 1s ease forwards .9s;}
+.tagline{font-family:'EB Garamond',serif;font-style:italic;font-size:1.1rem;color:var(--smoke);margin:1.2rem 0;opacity:0;animation:fd 1s ease forwards 1.2s;}
+.config{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin:1rem 0;opacity:0;animation:fd 1s ease forwards 1.5s;}
+.cfg-badge{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;background:rgba(201,162,39,.08);border:1px solid rgba(201,162,39,.25);color:var(--gold);padding:.25rem .75rem;border-radius:2px;}
+.divider{width:100%;max-width:500px;height:1px;background:linear-gradient(to right,transparent,rgba(201,162,39,.5),transparent);margin:1.2rem auto;opacity:0;animation:fdsc 1s ease forwards 1.7s;}
+.orn{text-align:center;color:rgba(201,162,39,.6);font-size:1.2rem;margin:-.55rem auto;position:relative;z-index:1;opacity:0;animation:fd 1s ease forwards 1.8s;}
+@keyframes fd{from{opacity:0;transform:translateY(-16px);}to{opacity:1;transform:none;}}
+@keyframes fdsc{from{opacity:0;transform:scaleX(0);}to{opacity:1;transform:scaleX(1);}}
+/* SECTIONS */
+.section{position:relative;z-index:1;max-width:1000px;margin:0 auto;padding:3.5rem 2rem;}
+.sh{font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin:1.8rem 0 .65rem;display:flex;align-items:center;gap:.6rem;}
+.sh::after{content:'';flex:1;height:1px;background:rgba(201,162,39,.18);}
+.section-title{font-family:'Cinzel Decorative',serif;font-size:clamp(1.1rem,2.3vw,1.7rem);color:var(--gold);text-align:center;margin-bottom:.4rem;}
+.section-sub{font-family:'EB Garamond',serif;font-style:italic;font-size:1rem;color:var(--smoke);text-align:center;margin-bottom:2.2rem;}
+.gl{height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);margin:1.2rem 0;}
+/* CALLOUT */
+.cl{border-left:3px solid var(--gold);padding:.82rem 1.1rem;margin:.8rem 0;background:rgba(201,162,39,.06);border-radius:0 4px 4px 0;}
+.cl.red{border-left-color:var(--red-bright);background:rgba(139,26,26,.1);}
+.cl.purple{border-left-color:var(--purple);background:rgba(50,0,80,.12);}
+.cl.green{border-left-color:var(--green);background:rgba(20,60,20,.1);}
+.cl.orange{border-left-color:var(--orange);background:rgba(80,30,0,.12);}
+.cl.teal{border-left-color:var(--teal);background:rgba(5,40,50,.12);}
+.ct{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.28rem;}
+.cl.red .ct{color:var(--red-bright);}.cl.purple .ct{color:var(--purple);}.cl.green .ct{color:var(--green);}.cl.orange .ct{color:var(--orange);}.cl.teal .ct{color:var(--teal);}
+.cl p{font-size:.92rem;line-height:1.7;color:var(--parch2);}
+/* DAY CARDS */
+.days-container{display:flex;flex-direction:column;gap:1.8rem;}
+.day-card{border-radius:4px;overflow:hidden;border:1px solid rgba(201,162,39,.2);cursor:pointer;transition:border-color .3s,transform .2s;}
+.day-card:hover{border-color:rgba(201,162,39,.45);transform:translateY(-2px);}
+.day-header{padding:1.3rem 1.8rem;display:flex;align-items:center;gap:1.3rem;}
+.day-num{font-family:'Cinzel Decorative',serif;font-size:2.3rem;font-weight:700;min-width:65px;text-align:center;line-height:1;}
+.day-info{flex:1;}
+.day-label{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.38em;text-transform:uppercase;opacity:.65;margin-bottom:.15rem;}
+.day-title{font-family:'Cinzel Decorative',serif;font-size:clamp(1rem,2.2vw,1.5rem);font-weight:700;line-height:1.2;}
+.day-sub{font-family:'EB Garamond',serif;font-style:italic;font-size:.93rem;margin-top:.15rem;opacity:.75;}
+.day-expand{font-size:1.1rem;color:var(--gold-dim);transition:transform .3s;}
+.day-card.open .day-expand{transform:rotate(180deg);}
+.day-body{max-height:0;overflow:hidden;transition:max-height .45s ease;}
+.day-card.open .day-body{max-height:2500px;}
+.day-body-inner{padding:1.8rem;background:rgba(13,10,5,.95);}
+/* Day color themes */
+.day-card[data-day="1"] .day-header{background:linear-gradient(135deg,rgba(30,15,5,1),rgba(50,20,5,1));}
+.day-card[data-day="1"] .day-num,.day-card[data-day="1"] .day-title{color:var(--gold2);}
+.day-card[data-day="1"]{border-color:rgba(201,162,39,.3);}
+.day-card[data-day="2"] .day-header{background:linear-gradient(135deg,rgba(20,5,20,1),rgba(45,8,38,1));}
+.day-card[data-day="2"] .day-num,.day-card[data-day="2"] .day-title{color:#d8b4fe;}
+.day-card[data-day="2"]{border-color:rgba(192,132,252,.28);}
+.day-card[data-day="3"] .day-header{background:linear-gradient(135deg,rgba(20,5,5,1),rgba(55,8,8,1));}
+.day-card[data-day="3"] .day-num,.day-card[data-day="3"] .day-title{color:#fca5a5;}
+.day-card[data-day="3"]{border-color:rgba(231,76,60,.38);}
+.day-card[data-day="4"] .day-header{background:linear-gradient(135deg,rgba(5,18,18,1),rgba(5,35,45,1));}
+.day-card[data-day="4"] .day-num,.day-card[data-day="4"] .day-title{color:#a5f3fc;}
+.day-card[data-day="4"]{border-color:rgba(103,232,249,.28);}
+.day-card[data-day="5"] .day-header{background:linear-gradient(135deg,rgba(15,12,5,1),rgba(38,28,5,1));}
+.day-card[data-day="5"] .day-num,.day-card[data-day="5"] .day-title{color:#fde68a;}
+.day-card[data-day="5"]{border-color:rgba(201,162,39,.45);}
+/* Time blocks */
+.tb{display:grid;grid-template-columns:105px 1fr;gap:1.3rem;margin-bottom:1.3rem;align-items:start;}
+.tt{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.1em;color:var(--gold-dim);text-align:right;padding-top:.25rem;border-right:1px solid rgba(201,162,39,.18);padding-right:1.3rem;}
+.tc h4{font-family:'Cinzel',serif;font-size:.88rem;font-weight:700;letter-spacing:.08em;color:var(--gold2);text-transform:uppercase;margin-bottom:.35rem;}
+.tc p{font-size:.93rem;line-height:1.72;color:var(--parch2);}
+.tag{display:inline-block;font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;padding:.18rem .5rem;border-radius:2px;margin-right:.3rem;margin-bottom:.3rem;}
+.tag-r{background:rgba(139,26,26,.4);color:#fca5a5;border:1px solid rgba(231,76,60,.38);}
+.tag-g{background:rgba(201,162,39,.1);color:var(--gold);border:1px solid rgba(201,162,39,.28);}
+.tag-v{background:rgba(50,0,80,.45);color:#d8b4fe;border:1px solid rgba(192,132,252,.32);}
+.tag-f{background:rgba(20,60,20,.38);color:#86efac;border:1px solid rgba(134,239,172,.32);}
+.tag-s{background:rgba(5,40,50,.4);color:#a5f3fc;border:1px solid rgba(103,232,249,.32);}
+.tag-sc{background:rgba(100,15,15,.4);color:#fca5a5;border:1px solid rgba(180,50,50,.3);}
+/* Clue grid */
+.clue-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:.9rem;margin-top:1.5rem;}
+.clue-card{background:#0d0a05;border:1px solid rgba(201,162,39,.22);border-radius:4px;padding:1rem 1.1rem;font-family:'EB Garamond',serif;font-style:italic;font-size:.93rem;color:var(--parch2);line-height:1.6;position:relative;}
+.clue-card::before{content:'⚜';position:absolute;top:.35rem;right:.55rem;font-size:.65rem;color:var(--gold-dim);}
+/* Prize grid */
+.prize-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.1rem;margin-top:1.5rem;}
+.pcard{background:#120e08;border:1px solid rgba(201,162,39,.18);border-radius:4px;padding:1rem 1.1rem;}
+.pcard .icon{font-size:1.35rem;margin-bottom:.3rem;}
+.pcard .name{font-family:'Cinzel',serif;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold2);margin-bottom:.22rem;}
+.pcard .desc{font-size:.83rem;color:var(--smoke);line-height:1.5;}
+/* Rules table */
+.dt{width:100%;border-collapse:collapse;font-size:.88rem;}
+.dt th{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-dim);border-bottom:1px solid rgba(201,162,39,.22);padding:.5rem .7rem;text-align:left;}
+.dt td{padding:.48rem .7rem;border-bottom:1px solid rgba(201,162,39,.07);color:var(--parch2);line-height:1.5;}
+.dt tr:hover td{background:rgba(201,162,39,.04);}
+/* Footer */
+.footer{text-align:center;padding:3rem 2rem;border-top:1px solid rgba(201,162,39,.14);position:relative;z-index:1;}
+.footer-title{font-family:'Cinzel Decorative',serif;font-size:1rem;color:var(--gold);margin-bottom:.4rem;}
+.footer-sub{font-family:'EB Garamond',serif;font-style:italic;color:var(--ash);font-size:.9rem;}
+/* Reveal */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:none;}
+@media(max-width:650px){.tb{grid-template-columns:75px 1fr;gap:.9rem;}.tt{font-size:.58rem;}}
+</style>
+</head>
+<body>
+<div id="aw">
+
+<section class="hero">
+  <p class="eyebrow">Your Field Guide · The Crosspointe Explorers</p>
+  <h1 class="main-title">EXPLORER'S<br>FIELD GUIDE</h1>
+  <p class="sub-title">The Traitors: Crosspointe Edition</p>
+  <p class="tagline">"Pay attention to everything. Trust wisely. Root them out."</p>
+  <div class="config">
+    <span class="cfg-badge">65 Explorers</span>
+    <span class="cfg-badge">9 Hidden Traitors</span>
+    <span class="cfg-badge">1 Double Agent</span>
+    <span class="cfg-badge">4 Roundtables</span>
+    <span class="cfg-badge">5 Scrolls</span>
+  </div>
+  <div class="divider"></div>
+  <div class="orn">✦ ⚜ ✦</div>
+  <div class="divider"></div>
+  <div class="castle-sil"></div>
+  <div class="candles">
+    <div class="cv"><div class="fl"></div><div class="cb"></div></div>
+    <div class="cv"><div class="fl"></div><div class="cb"></div></div>
+    <div class="cv"><div class="fl"></div><div class="cb"></div></div>
+    <div class="cv"><div class="fl"></div><div class="cb"></div></div>
+  </div>
+</section>
+
+<!-- YOUR MISSION -->
+<section class="section reveal">
+  <p class="section-title">The Faithful's Mission</p>
+  <p class="section-sub">You carry the weight of the castle</p>
+  <div class="gl"></div>
+
+  <div class="cl">
+    <p class="ct">⚜ Your Role</p>
+    <p>You are a <strong>Faithful</strong>. You know only your own loyalty. Among your 65 colleagues, <strong>9 are secretly Traitors</strong> — and one Faithful is a <strong>Double Agent</strong> who holds classified knowledge about one Traitor's identity. You don't know which colleague is the Double Agent, but they are on your side.<br><br>
+    Work together. Earn gold coins. Observe everything. At each of the four daily Roundtables (Tuesday through Friday), vote to banish the people you suspect. Root out every Traitor before Friday's Final Roundtable — or the Traitors win.</p>
+  </div>
+
+  <div class="cl green">
+    <p class="ct">✦ How to Win</p>
+    <p>Banish all 9 Traitors across the four Roundtables (Tue–Fri). If every Traitor is gone by Friday's Final Roundtable — the Faithfuls win and split the glory. If even one Traitor survives to the end — the Traitors claim everything. The Fallen Explorers Council (eliminated players) casts one collective vote at the Final Roundtable, so no one is truly out of the game.</p>
+  </div>
+</section>
+
+<!-- FIVE DAYS -->
+<section class="section reveal" style="padding-top:0;">
+  <p class="section-title">The Five Days of Fate</p>
+  <p class="section-sub">Click each day to reveal what's happening</p>
+  <div class="gl"></div>
+
+  <div class="days-container">
+
+    <div class="day-card" data-day="1" onclick="toggleDay(this)">
+      <div class="day-header">
+        <div class="day-num">I</div>
+        <div class="day-info">
+          <p class="day-label">Monday · Day One</p>
+          <p class="day-title">The Gathering</p>
+          <p class="day-sub">"The game begins. The castle opens its doors."</p>
+        </div>
+        <span class="day-expand">▼</span>
+      </div>
+      <div class="day-body"><div class="day-body-inner">
+        <div class="cl"><p class="ct">⚜ Dress Code</p><p>All black today. You are all Explorers... for now.</p></div>
+        <div class="tb"><div class="tt">Morning</div><div class="tc"><span class="tag tag-s">Opening</span><h4>The Envelope Ceremony</h4><p>All 65 staff open sealed role envelopes simultaneously in the cafetorium. Your card tells you whether you are a Faithful, a Traitor, or the Double Agent. You are a Faithful — loyal to the castle. Hold that loyalty and start watching.</p></div></div>
+        <div class="tb"><div class="tt">Midday</div><div class="tc"><span class="tag tag-g">Mission 1</span><h4>Castle Build-Off</h4><p>Teams compete to build the tallest, most creative structure using only index cards, tape, straws, and foil. <strong>10 minutes.</strong> Three prizes: <strong>Tallest (+5 coins)</strong>, <strong>Best Design (+3 coins, crowd vote)</strong>, <strong>Most Dramatic Collapse (+2 coins)</strong>. Compete hard. Build credibility. And start watching how people behave under pressure.</p></div></div>
+        <div class="tb"><div class="tt">Afternoon</div><div class="tc"><span class="tag tag-g">Mission 2</span><h4>Staff Olympics — 3 Events</h4><p><strong>Cartographer's Draw:</strong> Blindfolded relay castle drawing — each person adds one element to a team drawing of Crosspointe Castle. <strong>Explorer's Sprint:</strong> Silly movement relay (crab walk, hop, backward walk, bear crawl). <strong>Cipher Toss:</strong> School trivia + ball catch — wrong answer and you sit down. Each event has coin prizes for the winning team. Watch for Traitors who are suspiciously good at rallying their side.</p></div></div>
+        <div class="cl red"><p class="ct">🗡 What the Traitors Are Doing Tonight</p><p>After you leave for the day, the 9 Traitors are quietly voting to eliminate one Faithful. A sealed black scroll will be placed on someone's desk overnight. You won't know until tomorrow morning.</p></div>
+      </div></div>
+    </div>
+
+    <div class="day-card" data-day="2" onclick="toggleDay(this)">
+      <div class="day-header">
+        <div class="day-num">II</div>
+        <div class="day-info">
+          <p class="day-label">Tuesday · Day Two</p>
+          <p class="day-title">The Missions + Roundtable #1</p>
+          <p class="day-sub">"The first scroll is read. The first vote is cast."</p>
+        </div>
+        <span class="day-expand">▼</span>
+      </div>
+      <div class="day-body"><div class="day-body-inner">
+        <div class="tb"><div class="tt">Morning</div><div class="tc"><span class="tag tag-sc">Scroll #1</span><h4>First Elimination Revealed</h4><p>The Game Master reads the first Black Scroll aloud at the morning gathering. One Explorer has been eliminated by the Traitors overnight. They receive a cape and join the Fallen Explorers Council. They will still have a vote at the Final Roundtable — their voice counts.</p></div></div>
+        <div class="tb"><div class="tt">Midday</div><div class="tc"><span class="tag tag-g">Mission 3</span><h4>The Great Explorer Bake-Off</h4><p>Each team gets a bag of random snacks and 15 minutes to create a "dish" — no baking, just assembly and presentation. Name it dramatically. Present in 2 minutes. Crowd votes by applause. Use this time to observe how your colleagues behave in a low-stakes group setting.</p></div></div>
+        <div class="tb"><div class="tt">Afternoon</div><div class="tc"><span class="tag tag-g">Mission 4</span><h4>The Cipher Challenge</h4><p>Teams race through a 5-clue campus escape-room hunt. The trail winds through the <strong>Mailroom</strong>, the <strong>Cafetorium</strong>, the <strong>Playground</strong>, and the <strong>Principal's Office</strong> before ending in a coded final message to decode. First team back with the answer wins 5 coins each. Watch how Traitors navigate this — they'll try to appear helpful while quietly sizing up the competition.</p></div></div>
+        <div class="tb"><div class="tt">Late PM</div><div class="tc"><span class="tag tag-v">Roundtable #1</span><h4>First Vote — 60 Seconds Each</h4><p>Everyone gets 60 seconds to speak, accuse, defend, or stay silent. Then you write one name on your ballot and place it in the Vote Urn. The person with the most votes is banished — and their role is revealed. Did you find a Traitor? Or did you cast out a Faithful? The most dramatic speech earns +2 bonus coins (crowd vote).</p></div></div>
+        <div class="cl red"><p class="ct">🗡 Tonight's Threat</p><p>After the Roundtable, the remaining Traitors choose their next elimination target. Another scroll will be delivered overnight.</p></div>
+      </div></div>
+    </div>
+
+    <div class="day-card" data-day="3" onclick="toggleDay(this)">
+      <div class="day-header">
+        <div class="day-num">III</div>
+        <div class="day-info">
+          <p class="day-label">Wednesday · Day Three</p>
+          <p class="day-title">The Double Strike</p>
+          <p class="day-sub">"Two scrolls. One day. Watch for something strange."</p>
+        </div>
+        <span class="day-expand">▼</span>
+      </div>
+      <div class="day-body"><div class="day-body-inner">
+        <div class="cl red"><p class="ct">⚡ Two Scrolls Today</p><p>Wednesday is the most dramatic day of the week. You will receive two elimination revelations — one in the morning gathering, and one discovered when a scroll is found in plain sight in a common area around midday. The Traitors placed it there deliberately. This is a message: they are bold. They are not afraid of you.</p></div>
+        <div class="tb"><div class="tt">Morning</div><div class="tc"><span class="tag tag-sc">Scroll #2</span><h4>Second Elimination Revealed</h4><p>The Game Master reads the scroll at the morning gathering. Cape, ceremony, and the Fallen Explorer joins the Council. Use this moment to observe who seems relieved, who seems surprised, and who seems too neutral.</p></div></div>
+        <div class="tb"><div class="tt">~11am</div><div class="tc"><span class="tag tag-sc">Scroll #3 — In Plain Sight</span><h4>The Public Scroll</h4><p>A sealed scroll will appear somewhere visible in the building — on the lounge table, the coffee counter, a hallway ledge. When it's found and an emergency gathering is called, the eliminated person's name is inside. Watch the Traitors' faces when this is announced. Their reactions in the moment of genuine surprise are rare opportunities for Faithfuls. Also: be watchful of anyone who seems to be engineering unusual situations around you today — the Traitors have a challenge.</p></div></div>
+        <div class="tb"><div class="tt">Midday</div><div class="tc"><span class="tag tag-g">Mission 5</span><h4>Among Us Lunch + Suspicion Dossiers</h4><p>Every table receives a Suspicion Dossier — anonymous behavioral observations from the Game Master. A Confession Booth is available: a private curtained corner where you can share information with the Game Master. Use it if you have intel you don't want to share publicly. The GM will keep your identity protected.</p></div></div>
+        <div class="tb"><div class="tt">Afternoon</div><div class="tc"><span class="tag tag-g">Mission 6</span><h4>The Artifact Hunt</h4><p>12 artifacts hidden across campus with coin values (1, 2, or 5 coins). Teams race to collect the highest total in 30 minutes. Warning: some artifacts may have been "cursed" by the Traitors — they subtract 2 coins instead of adding. You won't know which ones until scoring. Watch who seems to know which artifacts to avoid.</p></div></div>
+        <div class="tb"><div class="tt">Late PM</div><div class="tc"><span class="tag tag-v">Roundtable #2</span><h4>60 Seconds Each · Vote Carefully</h4><p>Two eliminations already today. Emotions are high. The Traitors will use this energy to misdirect you. Stay focused on behavior patterns, not just speeches. Remember: the most passionate accuser is sometimes a Traitor deflecting. The quietest person in the room might be the most dangerous.</p></div></div>
+      </div></div>
+    </div>
+
+    <div class="day-card" data-day="4" onclick="toggleDay(this)">
+      <div class="day-header">
+        <div class="day-num">IV</div>
+        <div class="day-info">
+          <p class="day-label">Thursday · Day Four</p>
+          <p class="day-title">The Betrayal</p>
+          <p class="day-sub">"The Double Agent awakens. A Traitor may try to recruit you."</p>
+        </div>
+        <span class="day-expand">▼</span>
+      </div>
+      <div class="day-body"><div class="day-body-inner">
+        <div class="tb"><div class="tt">Morning</div><div class="tc"><span class="tag tag-sc">Scroll #4</span><h4>The Evening Scroll Found</h4><p>One Explorer arrived to find a scroll in their mailbox — placed there last night after school. They carried it home without knowing. This is the Traitors being methodical. Reveal at morning gathering.</p></div></div>
+        <div class="tb"><div class="tt">Morning</div><div class="tc"><span class="tag tag-s">Double Agent</span><h4>The Double Agent Activates</h4><p>The Game Master will publicly announce that the Double Agent — one of your Faithful colleagues holding classified Traitor intel — has until 3pm today to act on that information. They may reveal a Traitor publicly, or use the knowledge at the Roundtable. If no action by 3pm, the card expires. Watch who reacts unusually to this announcement. The Double Agent knows something. So do the Traitors.</p></div></div>
+        <div class="cl red"><p class="ct">✦ Recruitment Warning — Thursday Only</p><p>Today, one Traitor may approach you privately with a <strong>Recruitment Scroll</strong> — an invitation to join the Traitors. If this happens to you, you have two choices: <strong>(A) Accept</strong> and join the dark side, or <strong>(B) Refuse</strong> and keep the scroll as evidence to use at the Roundtable. Either choice is legitimate — but if you accept, you become a Traitor for the Final Roundtable. Choose carefully.</p></div>
+        <div class="tb"><div class="tt">Midday</div><div class="tc"><span class="tag tag-g">Mission 7</span><h4>The Traitor's Feast + Black Chocolates</h4><p>A full appreciation treat spread — but hidden inside are 3 chocolates wrapped in black foil. Each contains a clue card. When the GM announces this, actively look for the black chocolates. The clues may name a real Traitor, point to a real team, or be a red herring. Read them carefully. Share intel with trusted colleagues.</p></div></div>
+        <div class="tb"><div class="tt">Afternoon</div><div class="tc"><span class="tag tag-g">Mission 8</span><h4>Coworker Trivia</h4><p>During the appreciation time: 20 rounds of trivia about your colleagues, based on fun facts they submitted beforehand. 1 gold coin per correct answer. The highest scorer earns the Explorer's Compass badge.</p></div></div>
+        <div class="tb"><div class="tt">Late PM</div><div class="tc"><span class="tag tag-v">Roundtable #3</span><h4>60 Seconds Each · One Day Left</h4><p>You may have Double Agent intel surfacing today. The Traitors know the end is near and will be most deceptive in this vote. If the Double Agent reveals a Traitor — that person can be banished immediately or used as information for your vote strategy. One day remains after this.</p></div></div>
+        <div class="tb"><div class="tt">End of Day</div><div class="tc"><h4>Wall of Explorers Unveiled</h4><p>In the staff lounge — a portrait and anonymous compliment card for every single Explorer in the castle. Read yours. This is real. This is who your colleagues see when they look at you. The game is drama. This is truth.</p></div></div>
+      </div></div>
+    </div>
+
+    <div class="day-card" data-day="5" onclick="toggleDay(this)">
+      <div class="day-header">
+        <div class="day-num">V</div>
+        <div class="day-info">
+          <p class="day-label">Friday · Day Five</p>
+          <p class="day-title">The Grand Finale</p>
+          <p class="day-sub">"Everything is decided today. Make your vote count."</p>
+        </div>
+        <span class="day-expand">▼</span>
+      </div>
+      <div class="day-body"><div class="day-body-inner">
+        <div class="tb"><div class="tt">Morning</div><div class="tc"><span class="tag tag-sc">Scroll #5</span><h4>Final Elimination Revealed</h4><p>The Game Master reads the last scroll. The Final Dossier — a summary of the week's key clues and notable plays — is posted in the staff lounge. Review it before the Finale. Everything you've seen this week is now compiled in one place.</p></div></div>
+        <div class="tb"><div class="tt">Midday</div><div class="tc"><span class="tag tag-g">Grand Banquet</span><h4>The Explorer's Grand Feast</h4><p>The biggest, most celebratory lunch of the week. The Fallen Explorers Council returns to full status for the feast. Enjoy it. Strategize. Prepare your Final Roundtable speech.</p></div></div>
+        <div class="tb"><div class="tt">Early PM</div><div class="tc"><span class="tag tag-v">Roundtable #4 — THE FINAL VOTE</span><h4>The Grand Finale</h4><p>The Fallen Explorers Council casts one collective ballot. All surviving players vote. 60 seconds per person for final speeches — make yours count. The banished player reveals their role. Then: all remaining players stand. Traitors sit down. The truth surfaces. If no Traitors remain standing — <strong>Faithfuls win.</strong></p></div></div>
+        <div class="tb"><div class="tt">Finale</div><div class="tc"><span class="tag tag-f">Awards</span><h4>The Grand Awards Ceremony</h4><p>8 awards presented by category. Then — every single Explorer is recognized by name with one specific, genuine thing they contributed this year. The game was fiction. The appreciation is real.</p></div></div>
+      </div></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CLUE CARDS -->
+<section class="section reveal" style="padding-top:0;">
+  <p class="section-title">Intelligence Clue Cards</p>
+  <p class="section-sub">The Game Master plants 2–4 of these daily · Some are real · Some are misdirection</p>
+  <div class="gl"></div>
+  <div class="cl orange"><p class="ct">✦ Field Intelligence Protocol</p><p>These clue cards are left in common areas — the coffee machine, copy room, lounge table, bulletin boards — throughout the week. When you find one, share it with trusted colleagues. But remember: not all clues are accurate. The Traitors know these exist and will use them to their advantage. Evaluate each one with skepticism.</p></div>
+  <div class="clue-grid">
+    <div class="clue-card">"You are being watched."</div>
+    <div class="clue-card">"A Traitor walks beside you."</div>
+    <div class="clue-card">"Trust carefully."</div>
+    <div class="clue-card">"Someone is not who they seem."</div>
+    <div class="clue-card">"Trust no one."</div>
+    <div class="clue-card">"Check the living room at lunch…"</div>
+    <div class="clue-card">"A Traitor has been seen near the coffee machine… more than once. 👀"</div>
+    <div class="clue-card">"Someone in House B knows more than they're saying…"</div>
+    <div class="clue-card">"A Traitor participated VERY confidently in the last challenge…"</div>
+    <div class="clue-card">"Not all smiles are innocent. 😏"</div>
+    <div class="clue-card">"Look closely… one of your strongest players may not be on your side."</div>
+    <div class="clue-card">"The truth is hiding in plain sight."</div>
+    <div class="clue-card">"A Traitor has been late… more than once. 👀"</div>
+    <div class="clue-card">"Someone moves a little TOO fast when the tardy bell rings…"</div>
+    <div class="clue-card">"A Traitor always seems to beat the clock… suspicious timing. ⏰"</div>
+    <div class="clue-card">"Check who's watching the hallway during transitions…"</div>
+    <div class="clue-card">"Not everyone rushing to class is innocent…"</div>
+    <div class="clue-card">"Someone used 'I was helping a student' as an alibi. 😏"</div>
+  </div>
+</section>
+
+<!-- ROUNDTABLE GUIDE -->
+<section class="section reveal" style="padding-top:0;">
+  <p class="section-title">The Roundtable Faithful's Guide</p>
+  <p class="section-sub">Four votes. Four chances to find them.</p>
+  <div class="gl"></div>
+
+  <div class="cl">
+    <p class="ct">⚜ The 60-Second Rule</p>
+    <p>Each player gets exactly <strong>60 seconds</strong> to speak before each vote. Use yours. Don't waste it on general feelings — be specific. Name who you suspect and why. The most compelling speech earns bonus gold coins (crowd applause vote).</p>
+  </div>
+
+  <div class="sh">What to Watch For</div>
+  <table class="dt">
+    <thead><tr><th>Behavior</th><th>What It Might Mean</th></tr></thead>
+    <tbody>
+      <tr><td>Someone who reacts to "Traitor" being said before anyone else</td><td>May have heard the word in a different context (their group meetings)</td></tr>
+      <tr><td>A player who votes consistently against the same person for no stated reason</td><td>May be trying to eliminate a threat to their cover</td></tr>
+      <tr><td>Someone who compliments people in an oddly specific or slightly off way</td><td>Possibly completing a secret Traitor mission (yes, really)</td></tr>
+      <tr><td>Someone who seems to always know where things are, who's going where, what's happening</td><td>Traitors often gather information as part of their strategy</td></tr>
+      <tr><td>A player who is suspiciously helpful after an elimination</td><td>Classic Traitor deflection — sympathy-building after a target is eliminated</td></tr>
+      <tr><td>Someone who found the black chocolate and got very quiet about the clue inside</td><td>Worth a casual follow-up conversation</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- PRIZES -->
+<section class="section reveal" style="padding-top:0;">
+  <p class="section-title">Prizes &amp; Awards</p>
+  <p class="section-sub">What you're playing for</p>
+  <div class="gl"></div>
+
+  <div class="sh">Prize Pool</div>
+  <div class="prize-grid">
+    <div class="pcard"><div class="icon">🚗</div><div class="name">VIP Parking</div><div class="desc">Reserved front-row spot for one month.</div></div>
+    <div class="pcard"><div class="icon">🛒</div><div class="name">Snack Cart Delivery</div><div class="desc">Cart rolls to your classroom. You pick first.</div></div>
+    <div class="pcard"><div class="icon">🎁</div><div class="name">Gift Cards</div><div class="desc">Amazon, Target, or local coffee shop.</div></div>
+    <div class="pcard"><div class="icon">⏱</div><div class="name">Comp Time</div><div class="desc">Admin-approved compensatory time off. Honored fully.</div></div>
+    <div class="pcard"><div class="icon">🗓</div><div class="name">Extra Planning Time</div><div class="desc">Extra planning period with full coverage provided.</div></div>
+    <div class="pcard"><div class="icon">🛡</div><div class="name">Duty-Free Coverage</div><div class="desc">One assigned duty covered for 3 days.</div></div>
+    <div class="pcard"><div class="icon">👑</div><div class="name">Principal for the Day</div><div class="desc">Honorary title. Morning announcements. Name on the marquee.</div></div>
+    <div class="pcard"><div class="icon">🍕</div><div class="name">Appreciation Lunch</div><div class="desc">Admin-provided lunch — your choice of restaurant or catered order.</div></div>
+  </div>
+
+  <div class="sh">Friday Award Categories</div>
+  <div class="cl" style="margin-bottom:1rem;"><p class="ct">✦ The Prize Box</p><p>Every Friday award winner picks their own prize from a decorated Prize Box containing all available prize options. No prize is assigned — the winner chooses what matters most to them.</p></div>
+  <div class="prize-grid">
+    <div class="pcard" style="border-color:rgba(201,162,39,.4);"><div class="icon">🧠</div><div class="name" style="color:var(--gold2);">Mastermind</div><div class="desc">Most gold coins earned across the full week.</div></div>
+    <div class="pcard" style="border-color:rgba(231,76,60,.4);"><div class="icon">🎭</div><div class="name" style="color:#fca5a5;">Best Actor</div><div class="desc">Most convincing Traitor performance. Peer nominated.</div></div>
+    <div class="pcard" style="border-color:rgba(134,239,172,.4);"><div class="icon">🛡</div><div class="name" style="color:var(--green);">Ultimate Faithful</div><div class="desc">Most loyal, held the team together. Peer vote.</div></div>
+    <div class="pcard" style="border-color:rgba(103,232,249,.4);"><div class="icon">🔍</div><div class="name" style="color:var(--teal);">Best Detective</div><div class="desc">Most Traitors correctly identified at Roundtables.</div></div>
+    <div class="pcard" style="border-color:rgba(192,132,252,.4);"><div class="icon">👀</div><div class="name" style="color:var(--purple);">Most Suspicious</div><div class="desc">Everyone suspected them all week. Crowd vote.</div></div>
+    <div class="pcard" style="border-color:rgba(251,146,60,.4);"><div class="icon">😂</div><div class="name" style="color:var(--orange);">Chaotic Energy Award</div><div class="desc">Most beautifully unpredictable all week. Crowd vote.</div></div>
+    <div class="pcard" style="border-color:rgba(252,211,77,.4);"><div class="icon">🎤</div><div class="name" style="color:#fde68a;">Most Dramatic</div><div class="desc">Best speech or most theatrical moment. Crowd applause vote.</div></div>
+    <div class="pcard" style="border-color:rgba(248,113,113,.4);"><div class="icon">❤</div><div class="name" style="color:#fca5a5;">The Real MVP</div><div class="desc">Heart of the staff. The person who makes Crosspointe what it is. Genuine appreciation vote.</div></div>
+  </div>
+
+  <div class="cl green" style="margin-top:1.5rem;">
+    <p class="ct">✦ Everyone Gets Something</p>
+    <p>Every single Explorer gets a personal appreciation note each day, treat bags throughout the week, and is recognized by name at Friday's ceremony with one specific real contribution from this year. The game is competitive. The love is unconditional.</p>
+  </div>
+</section>
+
+<footer class="footer">
+  <p class="footer-title">⚜ Crosspointe Elementary — Home of the Explorers ⚜</p>
+  <p class="footer-sub">"We came. We explored. We absolutely questioned each other. And we loved every second."</p>
+  <div style="height:1px;background:linear-gradient(to right,transparent,rgba(201,162,39,.3),transparent);margin:1.5rem auto;max-width:400px;"></div>
+  <p class="footer-sub" style="font-size:.8rem;margin-top:.5rem;">Staff Appreciation Week · The Traitors Edition · Trust Wisely. Find Them All.</p>
+</footer>
+
+</div>
+<script>
+function toggleDay(card){
+  const isOpen=card.classList.contains('open');
+  document.querySelectorAll('.day-card.open').forEach(c=>c.classList.remove('open'));
+  if(!isOpen)card.classList.add('open');
+}
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

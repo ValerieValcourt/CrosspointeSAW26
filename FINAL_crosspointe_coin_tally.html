@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gold Coin Tally · The Traitors: Crosspointe Edition</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --gold:#C9A227;--gold2:#E8C84A;--gold-dim:#7A6018;
+  --crimson:#8B1A1A;--red-bright:#e74c3c;
+  --parch:#F5E6C8;--parch2:#d4b896;--smoke:#b0a090;--ash:#7a6f60;
+  --surface:#1a1208;--deep:#0a0705;
+  --purple:#c084fc;--green:#86efac;--orange:#fb923c;--teal:#67e8f9;
+}
+body{background:#0a0705;color:var(--parch);font-family:'EB Garamond',Georgia,serif;margin:0;padding:0;}
+#aw{
+  background-color:#0a0705;
+  background-image:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(80,40,10,.4) 0%,transparent 65%);
+  min-height:100vh;padding:2rem;
+}
+
+/* SCREEN STYLES */
+.screen-header{text-align:center;padding:2rem 1rem 3rem;max-width:1200px;margin:0 auto;}
+.screen-title{font-family:'Cinzel Decorative',serif;font-size:clamp(1.4rem,3vw,2.2rem);color:var(--gold);margin-bottom:.3rem;}
+.screen-sub{font-family:'EB Garamond',serif;font-style:italic;color:var(--smoke);font-size:1rem;margin-bottom:1.5rem;}
+.btn-row{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.5rem;}
+.btn{font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;padding:.55rem 1.4rem;border-radius:3px;cursor:pointer;transition:all .2s;border:none;}
+.btn-primary{background:rgba(201,162,39,.15);border:1px solid rgba(201,162,39,.45);color:var(--gold2);}
+.btn-primary:hover{background:rgba(201,162,39,.25);}
+.btn-secondary{background:rgba(139,26,26,.15);border:1px solid rgba(231,76,60,.35);color:#fca5a5;}
+.btn-secondary:hover{background:rgba(139,26,26,.25);}
+.btn-green{background:rgba(20,60,20,.2);border:1px solid rgba(134,239,172,.35);color:var(--green);}
+.btn-green:hover{background:rgba(20,60,20,.35);}
+
+/* COIN AWARD REFERENCE */
+.ref-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;max-width:1200px;margin:0 auto 2.5rem;}
+.ref-card{background:#120e08;border:1px solid rgba(201,162,39,.18);border-radius:4px;padding:1rem 1.2rem;}
+.ref-day{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:.5rem;}
+.ref-item{display:flex;justify-content:space-between;align-items:baseline;font-size:.88rem;color:var(--parch2);padding:.22rem 0;border-bottom:1px solid rgba(201,162,39,.06);}
+.ref-item:last-child{border-bottom:none;}
+.ref-coins{font-family:'Cinzel',serif;font-size:.8rem;color:var(--gold2);font-weight:700;white-space:nowrap;margin-left:.5rem;}
+
+/* TALLY TABLE */
+.tally-section{max-width:1200px;margin:0 auto;}
+.sh{font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin:2rem 0 .8rem;display:flex;align-items:center;gap:.6rem;}
+.sh::after{content:'';flex:1;height:1px;background:rgba(201,162,39,.18);}
+.team-label{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;padding:.4rem .9rem;border-radius:0 3px 3px 0;margin-bottom:.6rem;display:inline-block;}
+.team-compass{background:rgba(30,50,15,.5);border-left:3px solid #5a8a30;color:#a3d977;}
+.team-scroll{background:rgba(15,20,50,.5);border-left:3px solid #3050a0;color:#7090e0;}
+.team-dagger{background:rgba(50,15,15,.5);border-left:3px solid var(--crimson);color:#fca5a5;}
+.team-shield{background:rgba(15,35,50,.5);border-left:3px solid #2080a0;color:#70c0e0;}
+.team-torch{background:rgba(50,30,5,.5);border-left:3px solid #c08020;color:#f0c050;}
+
+.tally-table{width:100%;border-collapse:collapse;margin-bottom:1.5rem;font-size:.85rem;}
+.tally-table th{font-family:'Cinzel',serif;font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-dim);border-bottom:1px solid rgba(201,162,39,.25);padding:.55rem .6rem;text-align:center;}
+.tally-table th:first-child{text-align:left;min-width:180px;}
+.tally-table td{padding:.45rem .6rem;border-bottom:1px solid rgba(201,162,39,.06);text-align:center;vertical-align:middle;}
+.tally-table td:first-child{text-align:left;color:var(--parch);font-size:.9rem;}
+.tally-table tr:hover td{background:rgba(201,162,39,.04);}
+.day-col{min-width:60px;position:relative;}
+.day-header{font-family:'Cinzel',serif;font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .4rem;border-radius:2px;display:block;}
+.dh-mon{background:rgba(201,162,39,.12);color:var(--gold);}
+.dh-tue{background:rgba(50,0,80,.25);color:#d8b4fe;}
+.dh-wed{background:rgba(80,10,10,.25);color:#fca5a5;}
+.dh-thu{background:rgba(5,35,45,.25);color:#a5f3fc;}
+.dh-fri{background:rgba(20,50,10,.25);color:#86efac;}
+.total-col{background:#120e08;font-family:'Cinzel',serif;font-size:.95rem;font-weight:700;color:var(--gold2);}
+.rank-col{font-family:'Cinzel',serif;font-size:.75rem;color:var(--gold-dim);}
+.input-box{
+  width:52px;height:28px;
+  background:rgba(201,162,39,.06);
+  border:1px solid rgba(201,162,39,.2);
+  border-radius:3px;
+  color:var(--gold2);
+  font-family:'Cinzel',serif;font-size:.85rem;font-weight:700;
+  text-align:center;
+  transition:border-color .2s,background .2s;
+}
+.input-box:focus{outline:none;border-color:rgba(201,162,39,.55);background:rgba(201,162,39,.1);}
+.total-display{
+  font-family:'Cinzel',serif;font-size:1rem;font-weight:700;
+  color:var(--gold2);padding:.2rem .4rem;
+  background:rgba(201,162,39,.08);
+  border-radius:3px;min-width:48px;display:inline-block;text-align:center;
+}
+.status-badge{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;padding:.15rem .4rem;border-radius:2px;}
+.status-active{background:rgba(20,60,20,.4);color:#86efac;border:1px solid rgba(134,239,172,.3);}
+.status-fallen{background:rgba(50,0,80,.4);color:#d8b4fe;border:1px solid rgba(192,132,252,.3);}
+.status-banished{background:rgba(139,26,26,.4);color:#fca5a5;border:1px solid rgba(231,76,60,.3);}
+
+/* LEADERBOARD DISPLAY */
+.leaderboard{max-width:600px;margin:2rem auto;}
+.lb-row{display:flex;align-items:center;gap:1rem;padding:.7rem 1rem;border-radius:4px;margin-bottom:.5rem;background:#120e08;border:1px solid rgba(201,162,39,.1);transition:all .2s;}
+.lb-row.first{background:linear-gradient(135deg,rgba(40,30,5,.8),rgba(25,18,3,.8));border-color:rgba(201,162,39,.5);}
+.lb-row.second{background:linear-gradient(135deg,rgba(25,25,30,.8),rgba(15,15,20,.8));border-color:rgba(176,160,200,.35);}
+.lb-row.third{background:linear-gradient(135deg,rgba(35,18,5,.8),rgba(20,10,3,.8));border-color:rgba(160,100,50,.35);}
+.lb-pos{font-family:'Cinzel Decorative',serif;font-size:1.4rem;color:var(--gold-dim);min-width:36px;}
+.lb-row.first .lb-pos{color:var(--gold2);}
+.lb-row.second .lb-pos{color:#c0c0c8;}
+.lb-row.third .lb-pos{color:#cd8040;}
+.lb-name{font-size:1rem;color:var(--parch);flex:1;}
+.lb-coins{font-family:'Cinzel',serif;font-size:1.1rem;font-weight:700;color:var(--gold2);}
+.lb-medal{font-size:1.2rem;}
+
+/* NOTES / ANNOUNCE */
+.announce-box{max-width:700px;margin:2rem auto;background:#120e08;border:1px solid rgba(201,162,39,.25);border-radius:4px;padding:1.5rem;}
+.announce-title{font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem;}
+.announce-text{width:100%;background:rgba(201,162,39,.05);border:1px solid rgba(201,162,39,.2);border-radius:3px;color:var(--parch2);font-family:'EB Garamond',serif;font-size:1rem;padding:.65rem .9rem;min-height:80px;resize:vertical;}
+.announce-text:focus{outline:none;border-color:rgba(201,162,39,.45);}
+
+/* PRINT STYLES */
+@media print {
+  body{background:#fff!important;color:#000!important;}
+  #aw{background:#fff!important;background-image:none!important;padding:0;}
+  .screen-header,.btn-row,.ref-grid,.leaderboard,.announce-box{display:none!important;}
+  .tally-table{font-size:8pt;}
+  .tally-table th{color:#555;border-bottom:1px solid #999;font-size:6pt;}
+  .tally-table td{color:#000;border-bottom:1px solid #ddd;padding:.3rem .4rem;}
+  .tally-table td:first-child{color:#000;}
+  .input-box{border:1px solid #999;background:#fff;color:#000;font-size:8pt;width:40px;height:22px;}
+  .total-display{background:#f5f5f5;color:#000;border:1px solid #999;}
+  .total-col{background:#f0f0f0;}
+  .team-label{color:#000;background:#eee!important;border-left-color:#555!important;}
+  .sh{color:#000;}
+  .sh::after{background:#999;}
+  .day-header{background:#eee!important;color:#000!important;}
+  .print-header{display:block!important;}
+  .status-badge{color:#000;background:#eee;border:1px solid #999;}
+  .rank-col{color:#555;}
+  @page{size:landscape;margin:.4in;}
+}
+.print-header{
+  display:none;
+  text-align:center;margin-bottom:.5rem;
+  font-family:'Cinzel',serif;
+}
+.print-header h1{font-size:14pt;font-weight:700;}
+.print-header p{font-size:8pt;color:#555;}
+
+/* GL */
+.gl{height:1px;background:linear-gradient(to right,transparent,rgba(201,162,39,.3),transparent);margin:1.5rem 0;}
+</style>
+</head>
+<body>
+<div id="aw">
+
+<div class="print-header">
+  <h1>⚜ THE TRAITORS: CROSSPOINTE EDITION — GOLD COIN TALLY ⚜</h1>
+  <p>Game Master's Master Sheet · Post in Staff Lounge · Update Daily</p>
+  <p>Printed: <span id="print-date"></span></p>
+</div>
+
+<div class="screen-header">
+  <p class="screen-title">Gold Coin Tally</p>
+  <p class="screen-sub">The Traitors: Crosspointe Edition · Game Master's Tracking Sheet</p>
+  <p style="font-family:'EB Garamond',serif;font-style:italic;font-size:.9rem;color:var(--ash);max-width:600px;margin:0 auto 1.5rem;">Enter coins earned each day per person. Totals calculate automatically. Print and post in the staff lounge daily — or display on a screen. Update after each mission and Roundtable.</p>
+  <div class="btn-row">
+    <button class="btn btn-primary" onclick="window.print()">🖨 Print This Sheet</button>
+    <button class="btn btn-green" onclick="updateLeaderboard()">🏆 Update Leaderboard</button>
+    <button class="btn btn-secondary" onclick="clearAll()">↺ Reset All Coins</button>
+  </div>
+</div>
+
+<!-- COIN AWARD REFERENCE -->
+<div class="screen-header" style="padding-top:0;">
+  <p style="font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-dim);margin-bottom:1rem;">Quick Reference — How to Earn Coins</p>
+</div>
+<div class="ref-grid">
+  <div class="ref-card">
+    <p class="ref-day">Monday Missions</p>
+    <div class="ref-item">Castle Build-Off — Tallest<span class="ref-coins">+5 each</span></div>
+    <div class="ref-item">Castle Build-Off — Best Design<span class="ref-coins">+3 each</span></div>
+    <div class="ref-item">Castle Build-Off — Dramatic Collapse<span class="ref-coins">+2 (1 person)</span></div>
+    <div class="ref-item">Staff Olympics — Cartographer's Draw winner<span class="ref-coins">+3 each</span></div>
+    <div class="ref-item">Staff Olympics — Explorer's Sprint winner<span class="ref-coins">+3 each</span></div>
+    <div class="ref-item">Staff Olympics — Cipher Toss winner<span class="ref-coins">+4 each</span></div>
+  </div>
+  <div class="ref-card">
+    <p class="ref-day">Tuesday Missions</p>
+    <div class="ref-item">Explorer Bake-Off — Winning Team<span class="ref-coins">+4 each</span></div>
+    <div class="ref-item">Explorer Bake-Off — Runner-Up<span class="ref-coins">+2 each</span></div>
+    <div class="ref-item">Cipher Challenge — 1st Team<span class="ref-coins">+5 each</span></div>
+    <div class="ref-item">Cipher Challenge — 2nd Team<span class="ref-coins">+3 each</span></div>
+    <div class="ref-item">Cipher Challenge — 3rd Team<span class="ref-coins">+1 each</span></div>
+    <div class="ref-item">Roundtable #1 — Best Speech<span class="ref-coins">+2 (crowd)</span></div>
+  </div>
+  <div class="ref-card">
+    <p class="ref-day">Wednesday Missions</p>
+    <div class="ref-item">Artifact Hunt — 5-coin artifact<span class="ref-coins">+5 each</span></div>
+    <div class="ref-item">Artifact Hunt — 2-coin artifact<span class="ref-coins">+2 each</span></div>
+    <div class="ref-item">Artifact Hunt — 1-coin artifact<span class="ref-coins">+1 each</span></div>
+    <div class="ref-item">Correctly vote out a Traitor<span class="ref-coins">+4 each</span></div>
+    <div class="ref-item">Roundtable #2 — Best Speech<span class="ref-coins">+2 (crowd)</span></div>
+  </div>
+  <div class="ref-card">
+    <p class="ref-day">Thursday Missions</p>
+    <div class="ref-item">M7 Feast — Black Chocolate Clue acted on<span class="ref-coins">+2</span></div>
+    <div class="ref-item">M8 Trivia — per correct answer<span class="ref-coins">+1 each</span></div>
+    <div class="ref-item">Traitor: Successful Recruitment<span class="ref-coins">+5</span></div>
+    <div class="ref-item">Roundtable #3 — Best Speech<span class="ref-coins">+3 (crowd)</span></div>
+  </div>
+  <div class="ref-card">
+    <p class="ref-day">Friday Finale</p>
+    <div class="ref-item">Final Roundtable — Best Speech<span class="ref-coins">+3 (crowd)</span></div>
+    <div class="ref-item">Correctly identify final Traitor<span class="ref-coins">+4 each</span></div>
+    <div class="ref-item">Faithfuls WIN at Final Roundtable<span class="ref-coins">+5 each</span></div>
+    <div class="ref-item">Traitors SURVIVE Final Roundtable<span class="ref-coins">+10 each</span></div>
+  </div>
+  <div class="ref-card">
+    <p class="ref-day">Secret Traitor Missions (GM only)</p>
+    <div class="ref-item">Mission 1 — Awkward Compliment ×3<span class="ref-coins">+2</span></div>
+    <div class="ref-item">Mission 2 — Wrong Day<span class="ref-coins">+2</span></div>
+    <div class="ref-item">Mission 3 — Plain Sight + Chairs<span class="ref-coins">+5 total</span></div>
+    <div class="ref-item">Mission 4 — The Frame Job<span class="ref-coins">+3</span></div>
+    <div class="ref-item">Mission 5 — Kindness Twist<span class="ref-coins">+2</span></div>
+  </div>
+</div>
+
+<div class="gl" style="max-width:1200px;margin:1.5rem auto;"></div>
+
+<!-- TALLY TABLE -->
+<div class="tally-section">
+
+  <div class="sh">Team Compass</div>
+  <span class="team-label team-compass">Team Compass · ~13 Explorers</span>
+  <table class="tally-table" id="table-compass">
+    <thead>
+      <tr>
+        <th>Explorer Name</th>
+        <th><span class="day-header dh-mon">Mon</span></th>
+        <th><span class="day-header dh-tue">Tue</span></th>
+        <th><span class="day-header dh-wed">Wed</span></th>
+        <th><span class="day-header dh-thu">Thu</span></th>
+        <th><span class="day-header dh-fri">Fri</span></th>
+        <th>Total</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody id="body-compass"></tbody>
+  </table>
+
+  <div class="sh">Team Scroll</div>
+  <span class="team-label team-scroll">Team Scroll · ~13 Explorers</span>
+  <table class="tally-table" id="table-scroll">
+    <thead>
+      <tr>
+        <th>Explorer Name</th>
+        <th><span class="day-header dh-mon">Mon</span></th>
+        <th><span class="day-header dh-tue">Tue</span></th>
+        <th><span class="day-header dh-wed">Wed</span></th>
+        <th><span class="day-header dh-thu">Thu</span></th>
+        <th><span class="day-header dh-fri">Fri</span></th>
+        <th>Total</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody id="body-scroll"></tbody>
+  </table>
+
+  <div class="sh">Team Dagger</div>
+  <span class="team-label team-dagger">Team Dagger · ~13 Explorers</span>
+  <table class="tally-table" id="table-dagger">
+    <thead>
+      <tr>
+        <th>Explorer Name</th>
+        <th><span class="day-header dh-mon">Mon</span></th>
+        <th><span class="day-header dh-tue">Tue</span></th>
+        <th><span class="day-header dh-wed">Wed</span></th>
+        <th><span class="day-header dh-thu">Thu</span></th>
+        <th><span class="day-header dh-fri">Fri</span></th>
+        <th>Total</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody id="body-dagger"></tbody>
+  </table>
+
+  <div class="sh">Team Shield</div>
+  <span class="team-label team-shield">Team Shield · ~13 Explorers</span>
+  <table class="tally-table" id="table-shield">
+    <thead>
+      <tr>
+        <th>Explorer Name</th>
+        <th><span class="day-header dh-mon">Mon</span></th>
+        <th><span class="day-header dh-tue">Tue</span></th>
+        <th><span class="day-header dh-wed">Wed</span></th>
+        <th><span class="day-header dh-thu">Thu</span></th>
+        <th><span class="day-header dh-fri">Fri</span></th>
+        <th>Total</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody id="body-shield"></tbody>
+  </table>
+
+  <div class="sh">Team Torch</div>
+  <span class="team-label team-torch">Team Torch · ~13 Explorers</span>
+  <table class="tally-table" id="table-torch">
+    <thead>
+      <tr>
+        <th>Explorer Name</th>
+        <th><span class="day-header dh-mon">Mon</span></th>
+        <th><span class="day-header dh-tue">Tue</span></th>
+        <th><span class="day-header dh-wed">Wed</span></th>
+        <th><span class="day-header dh-thu">Thu</span></th>
+        <th><span class="day-header dh-fri">Fri</span></th>
+        <th>Total</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody id="body-torch"></tbody>
+  </table>
+</div>
+
+<div class="gl" style="max-width:1200px;margin:1.5rem auto;"></div>
+
+<!-- LIVE LEADERBOARD -->
+<div class="sh" style="max-width:1200px;margin:0 auto;">Top Explorers — Live Leaderboard</div>
+<div class="leaderboard" id="leaderboard">
+  <p style="text-align:center;font-style:italic;color:var(--ash);font-size:.9rem;">Enter coins above and click "Update Leaderboard" to see rankings</p>
+</div>
+
+<!-- GM ANNOUNCEMENT NOTES -->
+<div class="announce-box">
+  <p class="announce-title">📢 Daily GM Announcement Notes</p>
+  <textarea class="announce-text" placeholder="Type your daily leaderboard announcement here before reading it aloud at the gathering. E.g.: 'Good morning, Explorers. After two days of missions, our top coin holder is Jordan Smith of Team Compass with 14 coins. Close behind: Taylor Davis with 12, and Morgan Brown with 11. The Traitors are watching. The Faithfuls are counting. The game continues.'" rows="4"></textarea>
+</div>
+
+</div>
+
+<script>
+document.getElementById('print-date').textContent = new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+
+const teams = {
+  compass: [],
+  scroll: [],
+  dagger: [],
+  shield: [],
+  torch: []
+};
+
+// Initialize 13 rows per team
+const days = ['Mon','Tue','Wed','Thu','Fri'];
+['compass','scroll','dagger','shield','torch'].forEach(team => {
+  const tbody = document.getElementById('body-'+team);
+  for(let i=0;i<13;i++){
+    const row = document.createElement('tr');
+    const nameId = `${team}-name-${i}`;
+    const totalId = `${team}-total-${i}`;
+    row.innerHTML = `
+      <td><input style="background:transparent;border:none;border-bottom:1px solid rgba(201,162,39,0.2);color:var(--parch);font-family:'EB Garamond',serif;font-size:.95rem;width:100%;padding:.2rem 0;outline:none;" id="${nameId}" placeholder="Explorer name…" /></td>
+      ${days.map((d,di)=>`<td class="day-col"><input class="input-box" type="number" min="0" max="99" value="0" id="${team}-day${di}-${i}" onchange="calcTotal('${team}',${i})" /></td>`).join('')}
+      <td class="total-col"><span class="total-display" id="${totalId}">0</span></td>
+      <td><select style="background:#120e08;border:1px solid rgba(201,162,39,.18);color:var(--parch2);font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.08em;padding:.2rem .3rem;border-radius:2px;width:90px;" id="${team}-status-${i}">
+        <option value="active">Active</option>
+        <option value="fallen">Fallen Hero</option>
+        <option value="banished">Banished</option>
+      </select></td>
+    `;
+    tbody.appendChild(row);
+  }
+});
+
+function calcTotal(team, i) {
+  let total = 0;
+  for(let d=0;d<5;d++){
+    const val = parseInt(document.getElementById(`${team}-day${d}-${i}`).value)||0;
+    total += val;
+  }
+  document.getElementById(`${team}-total-${i}`).textContent = total;
+}
+
+function updateLeaderboard() {
+  const all = [];
+  ['compass','scroll','dagger','shield','torch'].forEach(team => {
+    for(let i=0;i<13;i++){
+      const name = document.getElementById(`${team}-name-${i}`).value.trim();
+      if(!name) return;
+      let total = 0;
+      for(let d=0;d<5;d++) total += parseInt(document.getElementById(`${team}-day${d}-${i}`).value)||0;
+      all.push({name, total, team});
+    }
+  });
+  all.sort((a,b)=>b.total-a.total);
+  const lb = document.getElementById('leaderboard');
+  if(all.length===0){lb.innerHTML='<p style="text-align:center;font-style:italic;color:var(--ash);font-size:.9rem;">Add names and coins above first</p>';return;}
+  const medals = ['🥇','🥈','🥉'];
+  const teamColors = {compass:'#a3d977',scroll:'#7090e0',dagger:'#fca5a5',shield:'#70c0e0',torch:'#f0c050'};
+  lb.innerHTML = all.slice(0,10).map((p,idx)=>`
+    <div class="lb-row ${idx===0?'first':idx===1?'second':idx===2?'third':''}">
+      <span class="lb-pos">${idx+1}</span>
+      <span class="lb-name">${p.name} <span style="font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.1em;color:${teamColors[p.team]||'#888'}">${p.team.charAt(0).toUpperCase()+p.team.slice(1)}</span></span>
+      <span class="lb-coins">${p.total} <span style="font-size:.65rem;color:var(--gold-dim);">coins</span></span>
+      ${idx<3?`<span class="lb-medal">${medals[idx]}</span>`:''}
+    </div>
+  `).join('');
+}
+
+function clearAll() {
+  if(!confirm('Reset all coin values? Names will be kept.')) return;
+  ['compass','scroll','dagger','shield','torch'].forEach(team => {
+    for(let i=0;i<13;i++){
+      for(let d=0;d<5;d++) document.getElementById(`${team}-day${d}-${i}`).value=0;
+      document.getElementById(`${team}-total-${i}`).textContent='0';
+    }
+  });
+}
+</script>
+</body>
+</html>
